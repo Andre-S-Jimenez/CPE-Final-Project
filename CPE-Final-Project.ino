@@ -1,4 +1,13 @@
 // Samuel Landaverde & Andre Jimenez & Jacob Darby
+
+// "DHT sensor library" by Adafruit
+#include <DHT.h>
+#include <DHT_U.h>
+
+#define DHTPIN 2              // can change later for conformance to standards
+#define DHTTYPE DHT11
+DHT dht(DHTPIN, DHTTYPE);
+
 #define RDA 0x80
 #define TBE 0x20  
 
@@ -16,6 +25,7 @@ volatile unsigned int* my_ADC_DATA = (unsigned int*) 0x78;
 void setup(){
   U0init(9600);
   adc_init();
+  dht.begin();
 }
 
 void loop(){
@@ -24,10 +34,41 @@ void loop(){
   U0printNum(value);
   U0printStr("Water Level: LOW");
   U0putchar('\n');
-}else{
+  }else{
   U0printStr("Water Level: High");
   U0putchar('\n');
-}
+  }
+
+  // Reading temperature or humidity takes about 250 milliseconds!
+  // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
+  float h = dht.readHumidity();
+  // Read temperature as Celsius (the default)
+  float t = dht.readTemperature();
+  // Read temperature as Fahrenheit (isFahrenheit = true)
+  float f = dht.readTemperature(true);
+
+  // Check if any reads failed and exit early (to try again).
+  if (isnan(h) || isnan(t) || isnan(f)) {
+    Serial.println(F("Failed to read from DHT sensor!"));
+    return;
+  }
+
+  // Compute heat index in Fahrenheit (the default)
+  float hif = dht.computeHeatIndex(f, h);
+  // Compute heat index in Celsius (isFahreheit = false)
+  float hic = dht.computeHeatIndex(t, h, false);
+
+  Serial.print(F("Humidity: "));
+  Serial.print(h);
+  Serial.print(F("%  Temperature: "));
+  Serial.print(t);
+  Serial.print(F("°C "));
+  Serial.print(f);
+  Serial.print(F("°F  Heat index: "));
+  Serial.print(hic);
+  Serial.print(F("°C "));
+  Serial.print(hif);
+  Serial.println(F("°F"));
   delay(1600); //CHANGE THIS SO IT DOESNT USE "DELAY"
 }
 
@@ -94,3 +135,6 @@ void U0printNum(int number){
     U0putchar((unsigned char)((number % 10) + 48));
   }
 }
+
+
+
