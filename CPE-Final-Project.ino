@@ -1,11 +1,15 @@
 // Samuel Landaverde & Andre Jimenez & Jacob Darby
 #include "UartSerial.h"
 #include "DHT_Driver.h"
+#include "States.h"
 
 volatile unsigned char* my_ADMUX = (unsigned char*) 0x7C;
 volatile unsigned char* my_ADCSRB = (unsigned char*) 0x7B;
 volatile unsigned char* my_ADCSRA = (unsigned char*) 0x7A;
 volatile unsigned int* my_ADC_DATA = (unsigned int*) 0x78;
+
+unsigned long dhtTime = millis();
+States state = DISABLED;
 
 void setup(){
   U0init(9600);
@@ -15,18 +19,28 @@ void setup(){
 
 void loop(){
 
-  // water level needs to be abstracted
-  int value = adc_read(0);
-  if (value < 200){
-  U0printNum(value);
-  U0printStr("Water Level: LOW");
-  U0putchar('\n');
-  }else{
-  U0printStr("Water Level: High");
-  U0putchar('\n');
-  }
+  if (state != DISABLED) {
+    
+    unsigned long currentTime = millis();
 
-  delay(1600); //CHANGE THIS SO IT DOESNT USE "DELAY"
+    // water level needs to be abstracted
+    int value = adc_read(0);
+    if (value < 200){
+    U0printNum(value);
+    U0printStr("Water Level: LOW");
+    U0putchar('\n');
+    }else{
+    U0printStr("Water Level: High");
+    U0putchar('\n');
+    }
+
+    // toggle dht updates once per minute
+    if (currentTime - dhtTime > 60000){
+      //TODO: print temperature and humitidy to LCD
+    }
+
+  }
+    delay(1600); //CHANGE THIS SO IT DOESNT USE "DELAY"
 }
 
 

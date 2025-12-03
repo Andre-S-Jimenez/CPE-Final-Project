@@ -1,3 +1,4 @@
+//TODO: needs real time clock for when fan toggle. 
 // "DHT sensor library" by Adafruit
 #ifndef DHT_DRIVER_H
 #define DHT_DRIVER_H
