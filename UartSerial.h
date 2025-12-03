@@ -10,36 +10,6 @@ volatile unsigned char *myUCSR0C = (unsigned char *)0x00C2;
 volatile unsigned int  *myUBRR0  = (unsigned int *) 0x00C4;
 volatile unsigned char *myUDR0   = (unsigned char *)0x00C6;
 
-volatile unsigned char* my_ADMUX = (unsigned char*) 0x7C;
-volatile unsigned char* my_ADCSRB = (unsigned char*) 0x7B;
-volatile unsigned char* my_ADCSRA = (unsigned char*) 0x7A;
-volatile unsigned int* my_ADC_DATA = (unsigned int*) 0x78;
-
-void adc_init(){
-  *my_ADCSRA |= 0b10000000;
-  *my_ADCSRA &= 0b11011111;
-  *my_ADCSRA &= 0b11110111;
-  *my_ADCSRA |= 0b00000111;
-  *my_ADCSRB &= 0b11110111;
-  *my_ADCSRB &= 0b11111000;
-  *my_ADMUX &= 0b01111111;
-  *my_ADMUX |= 0b01000000;
-  *my_ADMUX &= 0b11011111;
-  *my_ADMUX &= 0b11100000;
-}
-
-unsigned int adc_read(unsigned char adc_channel_num){
-  *my_ADMUX &= 0b11100000;
-  *my_ADCSRB &= 0b11110111;
-  if (adc_channel_num & 0x08)
-  *my_ADCSRB |= 0b00001000;
-  *my_ADMUX |= (adc_channel_num & 0x07);
-  *my_ADCSRA |= 0b01000000;
-  while((*my_ADCSRA & 0b01000000) != 0);
-  unsigned int val = (*my_ADC_DATA & 0x03FF);
-  return val;
-}
-
 void U0init(int U0baud){
   unsigned long FCPU = 16000000;
   unsigned int tbaud;
