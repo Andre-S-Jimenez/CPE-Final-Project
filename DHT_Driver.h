@@ -1,4 +1,7 @@
 // "DHT sensor library" by Adafruit
+#ifndef DHT_DRIVER_H
+#define DHT_DRIVER_H
+
 #include <DHT.h>
 #include <DHT_U.h>
 
@@ -44,3 +47,4 @@ bool fanShouldRun() {
   }
 
 }
+#endif
