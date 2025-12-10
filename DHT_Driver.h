@@ -6,7 +6,7 @@
 #include <DHT.h>
 #include <DHT_U.h>
 
-#define DHTPIN 2                                          // can change later for conformance to standards
+#define DHTPIN 8                                          // can change later for conformance to standards
 #define DHTTYPE DHT11
 DHT dht(DHTPIN, DHTTYPE);
 

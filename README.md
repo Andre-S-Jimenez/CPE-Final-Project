@@ -1,12 +1,12 @@
 # CPE-Final-Project
 CPE Final Project
  
-Vent: 
+Vent (uses pin A1): 
     -ventInit()
     -ventSet(int percent)
         -ventMove(int steps) <- private
 
-LCD (uses pins 2, 3, 4, 5, 11, 12): 
+LCD (uses pins 2, 3, 4, 5, 6, 7): 
     -lcdInit()
     -lcdPrintStatus(float temp, float humidity, State state)
         -stateMessage(State state) <- private
