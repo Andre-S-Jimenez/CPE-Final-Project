@@ -1,4 +1,5 @@
 //Jacob Darby. Lots of code recycled from Lab 7
+// pins used = 2-7
 #ifndef LCDDRIVER_H
 #define LCDDRIVER_H
 
@@ -6,12 +7,12 @@
 #include "States.h"
 
 //idk if these are the right pins
-#define LCD_RS 11
-#define LCD_EN 12
-#define LCD_D4 2
-#define LCD_D5 3
-#define LCD_D6 4
-#define LCD_D7 5
+#define LCD_RS 2
+#define LCD_EN 3
+#define LCD_D4 4
+#define LCD_D5 5
+#define LCD_D6 6
+#define LCD_D7 7
 
 static LiquidCrystal lcd(LCD_RS, LCD_EN, LCD_D4, LCD_D5, LCD_D6, LCD_D7);
 

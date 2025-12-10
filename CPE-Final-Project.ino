@@ -3,6 +3,8 @@
 #include "DHT_Driver.h"
 #include "States.h"
 #include "LcdDriver.h"
+#include "FanDriver.h"
+#include "VentDriver.h"
 
 volatile unsigned char* my_ADMUX = (unsigned char*) 0x7C;
 volatile unsigned char* my_ADCSRB = (unsigned char*) 0x7B;
@@ -17,6 +19,7 @@ void setup(){
   adc_init();
   dht.begin();
   lcdInit();
+  fanInit();
 }
 
 void loop(){
@@ -44,9 +47,14 @@ void loop(){
 
       lcdPrintStatus(temp, humidity, state);
     }
-
+    if (fanShouldRun()){
+      fanOn();
+    }else{
+      fanOff();
+    }
   }
-    delay(1600); //CHANGE THIS SO IT DOESNT USE "DELAY"
+
+  delay(1600); //CHANGE THIS SO IT DOESNT USE "DELAY"
 }
 
 

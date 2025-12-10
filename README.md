@@ -1,13 +1,40 @@
 # CPE-Final-Project
 CPE Final Project
  
- Labs and what they did (For reference)
- Lab1: button LED (used libraries)
- Lab2: decoder (used libraries)
- Lab3: traffic light (used libraries)
- Lab4: traffic light w/ buttons (used libraries)
- Lab5: timers w NO LIBRARIES
- Lab6: echos char to serial w NO LIBRARIES
- Lab7: LCD display (used libraries)
- Lab8: water sensor NO LIBRARIES
- Lab9: ISR stuff NO LIBRARIES
+Vent: 
+    -ventInit()
+    -ventSet(int percent)
+        -ventMove(int steps) <- private
+
+LCD (uses pins 2, 3, 4, 5, 11, 12): 
+    -lcdInit()
+    -lcdPrintStatus(float temp, float humidity, State state)
+        -stateMessage(State state) <- private
+    -lcdPrintError(err)
+
+Fan (uses pin 13):
+    -fanInit()
+    -fanOn()
+    -fanOff()
+
+MASTER PIN REFERENCE HERE:
+0 - XX
+1 - XX
+
+2 - LCD RS
+3 - LCD EN
+4 - LCD D4
+5 - LCD D5
+6 - LCD D6
+7 - LCD D7
+
+13 - Fan output
+
+A0 - Water sensor
+
+A1 - Pot for vent control
+
+22 - Vent
+24 - Vent
+26 - Vent
+28 - Vent
