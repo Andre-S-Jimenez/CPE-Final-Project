@@ -31,25 +31,19 @@ bool fanShouldRun() {
   60 degrees f, after which it will turn off.
   It will not turn on again until temp exceeds 72 degrees f.*/
   if (running){
-    if (temp > 60.0f){
-      return true;
-    }
-    else {
-      return false;
+    if (temp <= 60.0f){
+      running = false;
     }
   }
   /*If the cooler is off, it will stay off until it hits
   72 degrees f, after which it will turn on. 
   It will not turn off again until temp drops below 60.*/
   else {
-    if (temp < 72.0f){
-      return false;
-    }
-    else {
-      return true;
+    if (temp >= 72.0f){
+      running = true;
     }
   }
-
+  return running;
 }
 
 /*Returns the temperature in farenheit.

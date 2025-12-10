@@ -34,9 +34,10 @@ void U0putchar(unsigned char U0pdata){
 }
 
 void U0printStr(const unsigned char* string){
-  int length = strlen(string);
-  for (int i = 0; i < length; i++){
+  int i = 0;
+  while (string[i] != '\0'){
     U0putchar(string[i]);
+    i++
   }
 }
 
