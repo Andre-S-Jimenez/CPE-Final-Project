@@ -2,6 +2,7 @@
 #include "UartSerial.h"
 #include "DHT_Driver.h"
 #include "States.h"
+#include "LcdDriver.h"
 
 volatile unsigned char* my_ADMUX = (unsigned char*) 0x7C;
 volatile unsigned char* my_ADCSRB = (unsigned char*) 0x7B;
@@ -15,6 +16,7 @@ void setup(){
   U0init(9600);
   adc_init();
   dht.begin();
+  lcdInit();
 }
 
 void loop(){
@@ -37,6 +39,10 @@ void loop(){
     // toggle dht updates once per minute
     if (currentTime - dhtTime > 60000){
       //TODO: print temperature and humitidy to LCD
+      float temp = getTemp();
+      float humidity = getHumidity();
+
+      lcdPrintStatus(temp, humidity, state);
     }
 
   }
