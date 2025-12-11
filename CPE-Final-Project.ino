@@ -11,6 +11,7 @@ volatile unsigned char* my_ADCSRB = (unsigned char*) 0x7B;
 volatile unsigned char* my_ADCSRA = (unsigned char*) 0x7A;
 volatile unsigned int* my_ADC_DATA = (unsigned int*) 0x78;
 
+
 unsigned long dhtTime = millis();
 States state = DISABLED;
 
@@ -22,39 +23,39 @@ void setup(){
   fanInit();
 }
 
-void loop(){
+unsigned long previousTime = 0;
+const unsigned long LOOP_INTERVAL = 1600;
 
-  if (state != DISABLED) {
-    
-    unsigned long currentTime = millis();
+void loop() {
+  unsigned long currentTime = millis();
+  if(currentTime - previousTime >= LOOP_INTERVAL){
+    previousTime = currentTime;
 
-    // water level needs to be abstracted
-    int value = adc_read(0);
-    if (value < 200){
-    U0printNum(value);
-    U0printStr("Water Level: LOW");
-    U0putchar('\n');
-    }else{
-    U0printStr("Water Level: High");
-    U0putchar('\n');
-    }
+    if(state != DISABLED){
+      int value = adc_read(0);
+      if(value < 200){
+        U0printNum(value);
+        U0printStr("Water Level: LOW\n");
+      }else{
+        U0printStr("Water Level: High\n");
+      }
 
-    // toggle dht updates once per minute
-    if (currentTime - dhtTime > 60000){
-      //TODO: print temperature and humitidy to LCD
-      float temp = getTemp();
-      float humidity = getHumidity();
+      if (currentTime - dhtTime > 60000){
+        float temp = getTemp();
+        float humidity = getHumidity();
+        lcdPrintStatus(temp, humidity, state);
+        dhtTime = currentTime;
+      }
 
-      lcdPrintStatus(temp, humidity, state);
-    }
-    if (fanShouldRun()){
-      fanOn();
-    }else{
-      fanOff();
+      if (fanShouldRun()){
+        fanOn();
+      } else {
+        fanOff();
+      }
     }
   }
 
-  delay(1600); //CHANGE THIS SO IT DOESNT USE "DELAY"
+  // No delay() here → loop keeps running freely
 }
 
 
