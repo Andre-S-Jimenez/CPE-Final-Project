@@ -37,7 +37,7 @@ void U0printStr(const unsigned char* string){
   int i = 0;
   while (string[i] != '\0'){
     U0putchar(string[i]);
-    i++
+    i++;
   }
 }
 

@@ -16,9 +16,9 @@
 
 static LiquidCrystal lcd(LCD_RS, LCD_EN, LCD_D4, LCD_D5, LCD_D6, LCD_D7);
 
-cosnt char* stateMessage(States state) {
+const char* stateMessage(States state) {
     switch (state) {
-        case DISABLED: return "DISABLES";
+        case DISABLED: return "DISABLED";
         case IDLE: return "IDLE";
         case ERROR: return "ERROR";
         case RUNNING: return "RUNNING";
@@ -49,7 +49,7 @@ void lcdPrintError(const char* err){
     lcd.setCursor(0,0);
     lcd.print("ERROR");
     lcd.setCursor(0,1);
-    lcd.print(msg);
+    lcd.print(err);
 }
 
 #endif
