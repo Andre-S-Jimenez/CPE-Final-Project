@@ -5,26 +5,21 @@
 
 static RTC_DS1307 rtc;
 
-// Initialize the RTC module
-void rtc_init() {
-  if (!rtc.begin()) {
+void rtc_init(){
+  if(!rtc.begin()){
     U0printStr((const unsigned char*)"RTC initialization failed\n");
-    while (1); // Halt if RTC fails
+    while (1);
   }
-  
-  // Check if RTC lost power and needs to be set
-  if (!rtc.isrunning()) {
+
+  if(!rtc.isrunning()){
     U0printStr((const unsigned char*)"RTC not running, setting time\n");
-    // Set to compile time
     rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
   }
 }
 
-// Get current timestamp as a formatted string
 void rtc_getTimestamp(char* buffer) {
   DateTime now = rtc.now();
-  
-  // Format: YYYY-MM-DD HH:MM:SS
+
   buffer[0] = (now.year() / 1000) % 10 + '0';
   buffer[1] = (now.year() / 100) % 10 + '0';
   buffer[2] = (now.year() / 10) % 10 + '0';
@@ -47,7 +42,6 @@ void rtc_getTimestamp(char* buffer) {
   buffer[19] = '\0';
 }
 
-// Log a state change with timestamp
 void rtc_logStateChange(const unsigned char* newState) {
   char timestamp[20];
   rtc_getTimestamp(timestamp);
@@ -59,7 +53,6 @@ void rtc_logStateChange(const unsigned char* newState) {
   U0putchar('\n');
 }
 
-// Log fan motor on/off with timestamp
 void rtc_logFanChange(bool fanOn) {
   char timestamp[20];
   rtc_getTimestamp(timestamp);
@@ -74,7 +67,6 @@ void rtc_logFanChange(bool fanOn) {
   }
 }
 
-// Log vent position change with timestamp
 void rtc_logVentChange(int position) {
   char timestamp[20];
   rtc_getTimestamp(timestamp);
