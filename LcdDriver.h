@@ -31,17 +31,26 @@ void lcdInit(){
 }
 
 void lcdPrintStatus(float temp, float humidity, States state){
+   // U0printStr("lcdPrintStatus called \n");
+    lcd.begin(16,2);
     lcd.clear();
+    lcd.setCursor(0,0 );
+    //lcd.print("lcdprintstatuscalled");
+    
+    //U0printStr("lcd.clear()\n");
     lcd.setCursor(0,0);
     lcd.print("T:");
+    //U0printStr("T:");
     lcd.print(temp, 1);
     lcd.print("F H:");
+    //U0printStr("F H:\n");
     lcd.print(humidity,0);
     lcd.print("%");
 
     lcd.setCursor(0,1);
     lcd.print("State:");
     lcd.print(stateMessage(state));
+    
 }
 
 void lcdPrintError(const char* err){
@@ -50,6 +59,10 @@ void lcdPrintError(const char* err){
     lcd.print("ERROR");
     lcd.setCursor(0,1);
     lcd.print(err);
+}
+
+void lcdBlank(){
+    lcd.clear();
 }
 
 #endif

@@ -1,5 +1,5 @@
-#ifndef RTC_DRIVER_H
-#define RTC_DRIVER_H
+#ifndef RTCDRIVER_H
+#define RTCDRIVER_H
 
 #include <RTClib.h>
 
