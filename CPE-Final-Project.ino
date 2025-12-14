@@ -22,7 +22,7 @@ unsigned long previousTime = 0;
 const unsigned long LOOP_INTERVAL = 1600;
 
 unsigned long dhtTime = 0;
-const unsigned long DHT_INTERVAL = 6000;
+const unsigned long DHT_INTERVAL = 60000;
 
 float lastTemp = 0.0;
 float lastHumidity = 0.0;
