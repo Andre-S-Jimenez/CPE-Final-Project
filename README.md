@@ -12,7 +12,7 @@ LCD (uses pins 2, 3, 4, 5, 6, 7):
         -stateMessage(State state) <- private
     -lcdPrintError(err)
 
-Fan (uses pin 13):
+Fan (uses pin 10, 11, 12):
     -fanInit()
     -fanOn()
     -fanOff()
@@ -28,13 +28,27 @@ MASTER PIN REFERENCE HERE:
 6 - LCD D6
 7 - LCD D7
 
-13 - Fan output
+8 - DHT
+
+10 - Fan (IN2 on the chip)
+11 - Fan (EN1 on the chip)
+12 - Fan (IN1 on the chip)
+
+18 - button
+
+20 - RTC
+21 - RTC
+
+22 - Vent
+23 - LED
+24 - Vent
+25 - LED
+26 - Vent
+27 - LED
+28 - Vent
+29 - LED
 
 A0 - Water sensor
 
 A1 - Pot for vent control
 
-22 - Vent
-24 - Vent
-26 - Vent
-28 - Vent
